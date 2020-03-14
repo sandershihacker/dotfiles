@@ -1,0 +1,252 @@
+;--------------------------------------------
+; colors                                    ;
+;--------------------------------------------
+
+[colors]
+
+	bar_bg = ${xrdb:color0}
+	bar_fg = ${xrdb:color7}
+
+	border_col = ${xrdb:color0}
+
+	modules_bg = ${xrdb:color7}
+	modules_fg = ${xrdb:color0}
+
+	mod_bg = ${xrdb:color7}
+
+	modules_prefix_bg = ${xrdb:color7}
+	modules_prefix_fg = ${xrdb:color0}
+
+	urgent_bg  = ${xrdb:color1}
+	focused_bg = ${xrdb:color10}
+
+	essid_p_bg   = ${xrdb:color6}
+	down_p_bg    = #5e606c
+	cpu_p_bg     = ${xrdb:color5}
+	ram_p_bg     = ${xrdb:color11}
+	vol_p_bg     = #637b81
+	bright_p_bg  = #c29f6f
+	battery_p_bg = ${xrdb:color9}
+	time_p_bg    = ${xrdb:color10}
+
+	transparent_bg = #000f0f0f
+	pink_fg = #fffdd0d0
+
+;--------------------------------------------
+; bars                                      ;
+;--------------------------------------------
+
+[bar/base]
+	dpi      = 192
+	width    = 100%
+	height   = 30
+	offset-x = 0
+	offset-y = 0
+
+	bottom = false
+
+	background = #000f0f0f
+	foreground = ${xrdb:color7}
+
+	border-bottom-size  = 0
+	border-top-size     = 10
+
+	border-left-size    = 20
+	border-right-size   = 20
+
+	border-bottom-color = #000f0f0f
+	border-top-color    = #000f0f0f
+
+	border-left-color  = #000f0f0f
+	border-right-color = #000f0f0f
+
+	spacing            = 0
+	padding-left       = 0
+	padding-right      = 0
+	module-margin-left = 0
+
+	font-N = <fontconfig pattern>;<vertical offset>
+	font-0 = Roboto:style=Regular:size=6;3
+	font-1 = FontAwesome:style=Regular:size=6;3
+	font-2 = Roboto:style=Bold:size=6;3
+
+	modules-right   = volume essid
+    modules-center  = date
+    modules-left    = mon2
+
+	fixed-center = true
+    tray-position = left
+    wm-restack = i3
+
+	monitor = ${env:MONITOR:}
+    
+    
+
+;--------------------------------------------
+; modules                                   ;
+;--------------------------------------------
+
+[module/network]
+	type            = internal/network
+	interface       = wlo1
+	ping-interval   = 3
+
+[module/xwindow]
+	y-offset      = 10
+	type          = internal/xwindow
+	format        = <label>
+	label         = %title:0:50:%
+	label-padding = 3
+
+[module/date]
+	type        = internal/date
+	interval    = 1.0
+	time        = "%H:%M"
+    date        = "%A %m/%d"
+	label       = "%{T3}%date% %time%%{T-}"
+
+	format         = <label>
+	format-padding = 0
+
+	label-background = transparent_bg
+	; label-background = ${xrdb:color9}
+	label-foreground = #FFFDD0D0
+	label-padding    = 4
+
+[module/volume]
+	type          = internal/pulseaudio
+	format-volume = <label-volume>
+
+	mapped = true
+
+	label-volume            = " %percentage%%"
+	; label-volume-background = ${xrdb:color11}
+	label-volume-background = transparent_bg
+	label-volume-foreground = #fffdd0d0
+	label-volume-padding    = 3
+
+	format-muted = <label-muted>
+
+	label-muted            = "0% (muted)"
+	label-muted-background = ${xrdb:color0}
+	label-muted-foreground = ${xrdb:color7}
+	label-muted-padding    = 1
+
+	format-volume-padding = 0
+	format-muted-padding  = 0
+
+	ramp-headphones-0 = 
+
+[module/cpu]
+	type             = internal/cpu
+	interval         = 0.5
+	format           = <label>
+	label            = CPU: %percentage%%
+	label-background = ${xrdb:color12}
+	label-foreground = ${xrdb:color8}
+	label-padding    = 3
+
+[module/ram]
+	type     = internal/memory
+	interval = 3
+
+	format           = <label>
+	label            = "Mem: %percentage_used%%"
+	label-background = ${xrdb:color9}
+	label-foreground = ${xrdb:color8}
+	label-padding    = 3
+
+
+[module/essid]
+	inherit = module/network
+
+	format-connected = <label-connected>
+
+	label-connected               = " %essid%"
+	label-connected-background    = transparent_bg
+	label-connected-foreground    = #fffdd0d0
+	label-connected-padding       = 3
+	label-connected-padding-right = 3
+
+	ramp-signal-background    = ${xrdb:color0}
+	ramp-signal-foreground    = ${xrdb:color5}
+	ramp-connected-foreground = ${xrdb:color5}
+	ramp-signal-padding       = 1
+
+	format-disconnected = <label-disconnected>
+
+	format-disconnected-prefix              = ""
+	format-disconnected-prefix-padding      = 1
+	format-disconnected-prefix-padding-left = 1
+	format-disconnected-prefix-background   = ${xrdb:color0}
+	format-disconnected-prefix-foreground   = ${xrdb:color7}
+
+	label-disconnected               = "DISCONNECTED"
+	label-disconnected-background    = ${xrdb:color0}
+	label-disconnected-foreground    = ${xrdb:color7}
+	label-disconnected-padding       = 1
+	label-disconnected-padding-right = 1
+
+
+[module/down]
+	inherit = module/network
+
+	format-connected = <label-connected>
+
+	format-connected-prefix            = 
+	format-connected-prefix-background = ${colors.down_p_bg}
+	format-connected-prefix-foreground = ${colors.modules_prefix_fg}
+	format-connected-prefix-padding    = 1
+
+	label-connected               = %{T2}%downspeed:7%%{T-}
+	label-connected-background    = ${colors.modules_bg}
+	label-connected-foreground    = ${colors.modules_fg}
+	label-connected-padding-right = 1
+
+[module/padding]
+	type               = custom/text
+	content            = ||
+	content-padding    = 1
+	content-foreground = #000f0f0f
+	content-background = #000f0f0f
+
+[module/paddinglite]
+	type               = custom/text
+	content            = |
+	content-padding    = .5
+	content-foreground = ${xrdb:color18}
+	content-background = ${xrdb:color18}
+
+[module/mon2]
+
+	type            = internal/i3
+	format          = <label-state><label-mode>
+	index-sort      = true
+	wrapping-scroll = false
+	strip-wsnumbers = true
+
+	label-mode-background = #000f0f0f
+	label-mode-foreground = ${xrdb:color7}
+	label-mode-padding    = 2
+
+	label-focused            = %name%
+	label-focused-background = #000f0f0f
+	label-focused-foreground = #fffdd0d0
+	label-focused-padding    = 2
+
+	label-unfocused            = %name%
+	label-unfocused-background = #000f0f0f
+	label-unfocused-foreground = #939393
+	label-unfocused-padding    = 2
+
+	label-visible            = %name%
+	label-visible-background = #000f0f0f
+	label-visible-foreground = ${xrdb:color7}
+	label-visible-padding    = 2
+
+	label-urgent            = •
+	label-urgent-background = ${xrdb:color7}
+	label-urgent-foreground = ${xrdb:color1}
+	label-urgent-padding    = 2
+
+	pin-workspaces = true

@@ -1,0 +1,11 @@
+alias l="ls -lh"
+alias la="ls -lah"
+alias c="clear"
+alias clera="clear"
+alias r="cd .."
+alias open="xdg-open"
+
+# Power
+alias sd="shutdown now"
+alias huluvpn='sudo openconnect --juniper https://vpn.hulu.com'
+
