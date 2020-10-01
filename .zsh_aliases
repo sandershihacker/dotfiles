@@ -9,3 +9,7 @@ alias open="xdg-open"
 alias sd="shutdown now"
 alias huluvpn='sudo openconnect --juniper https://vpn.hulu.com'
 
+# Git
+alias gf="git fetch -p"
+alias ga="git add ."
+alias gc="git commit -m"

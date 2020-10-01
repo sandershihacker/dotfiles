@@ -75,7 +75,7 @@
     modules-left    = mon2
 
 	fixed-center = true
-    tray-position = left
+    tray-position = right
     wm-restack = i3
 
 	monitor = ${env:MONITOR:}

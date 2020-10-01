@@ -1,9 +1,5 @@
 !--------------------xdefaults
-URxvt.font: xft:Monaco for Powerline:pixelsize=15,\
-    xft:symbola,\
-    xft:symbola-free,\
-    xft:Symbola,\
-    xft:Symbola Free
+URxvt.font: xft:Consolas:size=11, xft: Inconsolata for Powerline, xft:MesloLGS NF
 
 urxvt*termName: rxvt
 urxvt*scrollBar: false

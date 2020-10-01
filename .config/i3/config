@@ -33,16 +33,22 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status pkill -RTMIN+1 i3blocks
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 6%+ unmute && $refresh_i3status"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 6%- unmute && $refresh_i3status"
-bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle && $refresh_i3status"
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Other media keys
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioStop exec playerctl stop
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 
 # start a browser window
 bindsym $mod+b exec google-chrome-stable
@@ -50,13 +56,16 @@ bindsym $mod+b exec google-chrome-stable
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# Power options
+bindsym $mod+p exec bash $HOME/Scripts/power.sh
+
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec rofi -show run -kb-cancel Super_L
+bindsym $mod+d exec rofi -show drun -kb-cancel Super_L
 # bindsym $mod+Escape exec rofi -show run -kb-cancel Super_L
 # bindsym $mod+Tab exec rofi -show run -kb-cancel Super_L
 
@@ -122,14 +131,20 @@ set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
-set $ws8 "I"
-set $ws9 "II"
-set $ws10 "III"
-set $ws11 "IV"
-set $ws12 "V"
-set $ws13 "VI"
-set $ws14 "VII"
+set $ws1ext "I"
+set $ws2ext "II"
+set $ws3ext "III"
+set $ws4ext "IV"
+set $ws5ext "V"
+set $ws6ext "VI"
+set $ws7ext "VII"
+set $ws8ext "VIII"
+set $ws9ext "IX"
+set $ws10ext "X"
 
 # Assign to monitors
 workspace $ws1 output DP-1
@@ -139,23 +154,33 @@ workspace $ws4 output DP-1
 workspace $ws5 output DP-1
 workspace $ws6 output DP-1
 workspace $ws7 output DP-1
+workspace $ws8 output DP-1
+workspace $ws9 output DP-1
+workspace $ws10 output DP-1
 
-workspace $ws8 output HDMI-1
-workspace $ws9 output HDMI-1
-workspace $ws10 output HDMI-1
-workspace $ws11 output HDMI-1
-workspace $ws12 output HDMI-1
-workspace $ws13 output HDMI-1
-workspace $ws14 output HDMI-1
+workspace $ws1ext output HDMI-2
+workspace $ws2ext output HDMI-2
+workspace $ws3ext output HDMI-2
+workspace $ws4ext output HDMI-2
+workspace $ws5ext output HDMI-2
+workspace $ws6ext output HDMI-2
+workspace $ws7ext output HDMI-2
+workspace $ws8ext output HDMI-2
+workspace $ws9ext output HDMI-2
+workspace $ws10ext output HDMI-2
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1 workspace $ws8
-bindsym $mod+2 workspace $ws2 workspace $ws9
-bindsym $mod+3 workspace $ws3 workspace $ws10
-bindsym $mod+4 workspace $ws4 workspace $ws11
-bindsym $mod+5 workspace $ws5 workspace $ws12
-bindsym $mod+6 workspace $ws6 workspace $ws13
-bindsym $mod+7 workspace $ws7 workspace $ws14
+bindsym $mod+1 workspace $ws1 workspace $ws1ext
+bindsym $mod+2 workspace $ws2 workspace $ws2ext
+bindsym $mod+3 workspace $ws3 workspace $ws3ext
+bindsym $mod+4 workspace $ws4 workspace $ws4ext
+bindsym $mod+5 workspace $ws5 workspace $ws5ext
+bindsym $mod+6 workspace $ws6 workspace $ws6ext
+bindsym $mod+7 workspace $ws7 workspace $ws7ext
+bindsym $mod+8 workspace $ws8 workspace $ws8ext
+bindsym $mod+9 workspace $ws9 workspace $ws9ext
+bindsym $mod+0 workspace $ws10 workspace $ws10ext
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -239,23 +264,34 @@ new_window pixel 0
 ##############################################################################
 #                             Wallpaper and Monitors                         #
 ##############################################################################
-exec_always feh --bg-fill /home/sandershi/Pictures/wallpapers/flat-cassette.jpg --bg-fill /home/sandershi/Pictures/wallpapers/flat-switches.jpg
+exec_always feh --bg-fill /home/sandershi/Pictures/wallpapers/earth.jpg
 
 ##############################################################################
 #                               Startup Apps                                 #
 ##############################################################################
 # exec --no-startup-id compton
-exec --no-startup-id redshift
-exec --no-startup-id guake
+exec --no-startup-id redshift &
+# exec --no-startup-id guake
 
 # xrandr monitor setup
-exec --no-startup-id source ~/Scripts/monitor-config.sh
+exec --no-startup-id sh ~/Scripts/monitor-config.sh
 
 # This has to run after xrandr
-exec --no-startup-id compton
+exec --no-startup-id compton &
 
 # Start Polybar
-exec --no-startup-id source ~/.config/polybar/launch.sh
+exec --no-startup-id sh ~/.config/polybar/launch.sh
 
 # Bluetooth Applet
 exec --no-startup-id blueman-applet
+
+# Fcitx
+exec --no-startup-id fcitx &
+
+# Global Protect
+exec sh $HOME/Scripts/startvpn.sh &
+
+
+
+for_window [title="Rings"] floating enable
+for_window [title="Exit Screen"] floating enable
