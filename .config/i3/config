@@ -147,39 +147,49 @@ set $ws9ext "IX"
 set $ws10ext "X"
 
 # Assign to monitors
-workspace $ws1 output DP-1
-workspace $ws2 output DP-1
-workspace $ws3 output DP-1
-workspace $ws4 output DP-1
-workspace $ws5 output DP-1
-workspace $ws6 output DP-1
-workspace $ws7 output DP-1
-workspace $ws8 output DP-1
-workspace $ws9 output DP-1
-workspace $ws10 output DP-1
+workspace $ws1 output DisplayPort-3
+workspace $ws2 output DisplayPort-3
+workspace $ws3 output DisplayPort-3
+workspace $ws4 output DisplayPort-3
+workspace $ws5 output DisplayPort-3
+workspace $ws6 output DisplayPort-3
+workspace $ws7 output DisplayPort-3
+workspace $ws8 output DisplayPort-3
+workspace $ws9 output DisplayPort-3
+workspace $ws10 output DisplayPort-3
 
-workspace $ws1ext output HDMI-2
-workspace $ws2ext output HDMI-2
-workspace $ws3ext output HDMI-2
-workspace $ws4ext output HDMI-2
-workspace $ws5ext output HDMI-2
-workspace $ws6ext output HDMI-2
-workspace $ws7ext output HDMI-2
-workspace $ws8ext output HDMI-2
-workspace $ws9ext output HDMI-2
-workspace $ws10ext output HDMI-2
+# workspace $ws1ext output HDMI-2
+# workspace $ws2ext output HDMI-2
+# workspace $ws3ext output HDMI-2
+# workspace $ws4ext output HDMI-2
+# workspace $ws5ext output HDMI-2
+# workspace $ws6ext output HDMI-2
+# workspace $ws7ext output HDMI-2
+# workspace $ws8ext output HDMI-2
+# workspace $ws9ext output HDMI-2
+# workspace $ws10ext output HDMI-2
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1 workspace $ws1ext
-bindsym $mod+2 workspace $ws2 workspace $ws2ext
-bindsym $mod+3 workspace $ws3 workspace $ws3ext
-bindsym $mod+4 workspace $ws4 workspace $ws4ext
-bindsym $mod+5 workspace $ws5 workspace $ws5ext
-bindsym $mod+6 workspace $ws6 workspace $ws6ext
-bindsym $mod+7 workspace $ws7 workspace $ws7ext
-bindsym $mod+8 workspace $ws8 workspace $ws8ext
-bindsym $mod+9 workspace $ws9 workspace $ws9ext
-bindsym $mod+0 workspace $ws10 workspace $ws10ext
+bindsym $mod+1 workspace $ws1
+# workspace $ws1ext
+bindsym $mod+2 workspace $ws2
+# workspace $ws2ext
+bindsym $mod+3 workspace $ws3
+# workspace $ws3ext
+bindsym $mod+4 workspace $ws4
+# workspace $ws4ext
+bindsym $mod+5 workspace $ws5
+# workspace $ws5ext
+bindsym $mod+6 workspace $ws6
+# workspace $ws6ext
+bindsym $mod+7 workspace $ws7
+# workspace $ws7ext
+bindsym $mod+8 workspace $ws8
+# workspace $ws8ext
+bindsym $mod+9 workspace $ws9
+# workspace $ws9ext
+bindsym $mod+0 workspace $ws10
+# workspace $ws10ext
 
 
 # move focused container to workspace
@@ -283,10 +293,10 @@ exec --no-startup-id compton &
 exec --no-startup-id sh ~/.config/polybar/launch.sh
 
 # Bluetooth Applet
-exec --no-startup-id blueman-applet
+# exec --no-startup-id blueman-applet
 
 # Fcitx
-exec --no-startup-id fcitx &
+# exec --no-startup-id fcitx &
 
 # Global Protect
 exec sh $HOME/Scripts/startvpn.sh &
