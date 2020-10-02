@@ -123,6 +123,8 @@ export PATH=$PATH:/home/sandershi/.local/bin:/opt/paloaltonetworks/globalprotect
 export I3CONF=/home/sandershi/.config/i3/config
 export PATH=/usr/lib/jvm/jdk-14/bin:$PATH
 export PATH=/opt/android-studio/bin:$PATH
+export PATH=/home/sandershi/Android/Sdk/platform-tools:$PATH
+export PATH=$PATH:/snap/gotop-cjbassi/current/bin
 export NVM_DIR="/home/sandershi/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
